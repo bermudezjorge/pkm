@@ -1,0 +1,52 @@
+:root {
+	sprite-size: 200px;
+	sprite-margin: 0;
+}
+
+.pkm__container {
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
+.pkm__name {
+	color: #000;
+	font-size: 3rem;
+	margin: 0;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.pkm__id {
+	color: #c57be6;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.pkm__sprite {
+	width: var(--sprite-size);
+	margin: var(--sprite-margin);
+	animation: idle_anim infinite 3s;
+}
+
+@media (prefers-reduced-motion) {
+  .pkm__sprite {
+  	width: var(--sprite-size);
+	margin: var(--sprite-margin);
+    animation: none;
+  }
+}
+
+@keyframes idle_anim {
+  0% {
+    transform: rotate(-7deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+  100% {
+    transform: rotate(-7deg);
+  }
+}
