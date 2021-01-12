@@ -1,24 +1,20 @@
-const API_URL = 'https://pokeapi.co/api/v2/pokemon/ditto'
+const API_URL = 'https://pokeapi.co/api/v2/pokemon/pikachu'
 
 export const getPkm = async () => {
-	try {
-		const response = await fetch(API_URL).json()
+	const response = await fetch(API_URL)
 
-		const filteredResponse = {
-			name: response.name, 
-			id: response.id,
-			sprite: response.sprite.front_default,
-		}
-
-		console.log(filteredResponse)
-
-		return filteredResponse
-		
-	} catch (err) {
-		return {
-			name: `Error: ${err}, reload page.`,
-			id: 0,
-			sprite: ''
-		}
+	if (!response.ok) {
+		const message = `An error has occured: ${response.status}`;
+		throw new Error(message);
 	}
+
+	const pkm = await response.json()
+
+	const filteredData = {
+		name: pkm.name, 
+		id: pkm.id,
+		sprite: pkm.sprites.front_default,
+	}
+
+	return filteredData
 }

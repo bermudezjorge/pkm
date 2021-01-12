@@ -1,18 +1,19 @@
 :root {
-	sprite-size: 200px;
-	sprite-margin: 0;
+	--sprite-size: 120px;
 }
 
 .pkm__container {
-	width: 100vw;
-	height: 100vh;
 	display: grid;
 	justify-content: center;
 	align-content: center;
+	background-color: whitesmoke;
+	border-radius: 1.2rem;
+	padding: 2rem;
+	background: linear-gradient(yellow, red);
 }
 
 .pkm__name {
-	color: #000;
+	color: #fff;
 	font-size: 3rem;
 	margin: 0;
 	text-align: center;
@@ -20,8 +21,8 @@
 }
 
 .pkm__id {
-	color: #c57be6;
-	font-size: 1rem;
+	color: #fff;
+	font-size: 2rem;
 	text-align: center;
 }
 
@@ -29,14 +30,19 @@
 	width: var(--sprite-size);
 	margin: var(--sprite-margin);
 	animation: idle_anim infinite 3s;
+	justify-self: center;
+	background: #ffffffa0;
+	border-radius: 50%;
+}
+
+.pkm__sprite--anim {
+	animation: none;
 }
 
 @media (prefers-reduced-motion) {
-  .pkm__sprite {
-  	width: var(--sprite-size);
-	margin: var(--sprite-margin);
-    animation: none;
-  }
+	.pkm__sprite--anim {
+		animation: idle_anim infinite 3s;
+	}
 }
 
 @keyframes idle_anim {

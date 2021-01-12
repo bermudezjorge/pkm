@@ -1,42 +1,49 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { loadDataFromAPI } from './state/pkmAPI/pkmApiActions.js'
+import { loadDataFromAPI, errorFromAPI } from './state/pkmAPI/pkmApiActions.js'
 
 import { getPkm } from './api/pkmAPI/getPkm.js'
 
 import './css/pkm.css'
 
 
-function App({ name, id, sprite, loadDataFromAPI }) {
+function App({ name, id, sprite, err, loadDataFromAPI, errorFromAPI }) {
   useEffect(() => {
     getPkm()
       .then((data) => loadDataFromAPI(data))
-      .catch((err) => loadDataFromAPI(err))
+      .catch(({ message }) => errorFromAPI(message))
+
   }, [])
 
-  return (
-    <div className="pkm__container">
-      {!!name ? (
-        <span>Loading...</span>
-      ) : (
-        <>
-          <h1 className="pkm__name">{name}</h1>
-            <h3 className="pkm__id">{id}</h3>
-          <img className="pkm__sprite" src={sprite} alt="is a pokemon" />
-        </>
-      )}
-    </div>
-  )
+  console.log(name, id, sprite, err)
+
+  if(!name) {
+    return <span>Loading...</span>
+  } else if(!!err) {
+    return <span>{err}</span>
+  } else {
+    return (
+      <div className="pkm__container">
+        <h1 className="pkm__name">{name}</h1>
+          <h3 className="pkm__id">{id}</h3>
+        <img className="pkm__sprite pkm__sprite--anim" src={sprite} alt="is a pokemon" />
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = state => {
-  const { name, id, sprite } = state
-
-  return { name, id, sprite }
-}
+const mapStateToProps = ({ name, id, sprite, err }) => ({
+  name,
+  id,
+  sprite,
+  err
+})
 
 export default connect(
   mapStateToProps,
-  { loadDataFromAPI }
+  {
+    loadDataFromAPI,
+    errorFromAPI
+  }
 )(App)

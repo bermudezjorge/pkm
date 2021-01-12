@@ -1,6 +1,4 @@
-import { createStore, combineReducers } from "redux";
+import { createStore } from "redux";
 import pkmData from "./pkmAPI/pkmApiReducer.js";
 
-const reducers = combineReducers({ pkmData });
-
-export default createStore(reducers);
+export default createStore(pkmData);

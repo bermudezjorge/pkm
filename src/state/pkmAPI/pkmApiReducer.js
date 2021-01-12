@@ -1,9 +1,10 @@
-import { LOAD_DATA } from "../actionTypes";
+import { LOAD_DATA, ERROR_API } from "../actionTypes";
 
 const initialState = {
   name: '',
   id: 0,
-  sprite: ''
+  sprite: '',
+  err: ''
 };
 
 export default function(state = initialState, action) {
@@ -15,6 +16,14 @@ export default function(state = initialState, action) {
         name: name,
         id: id,
         sprite: sprite,
+      };
+    }
+
+    case ERROR_API: {
+      const { message } = action.payload;
+      return {
+        ...state,
+        err: message
       };
     }
     
